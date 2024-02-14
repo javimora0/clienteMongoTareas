@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+    <div id="programador">
+        <h1>Programador</h1>
+    </div>
+
+    <div id="admin">
+        <h1>Admin</h1>
+        <h2>Todos los Usuarios</h2>
+        <button id="rellenarUsuarios">Obtener todos los Usuarios</button>
+        <button id="borrarTabla">Borrar Tabla</button>
+        <!-- Lista de todos los usuarios-->
+        <div id="contenedorTabla">
+            <table id="tablaUsuarios">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Tareas Completadas</th>
+                    <th>Rol</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Las filas se insertarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <br><br><br>
+
+        <!-- Buscar un usuario por id-->
+        <h2>Un usuario</h2>
+        <div id="unUsuario">
+            <label for="inputIdUnUsuario">Obtener un usuario: Introduzca su id</label><br>
+            <input id="inputIdUnUsuario" type="text">
+            <button id="botonBuscarUnUsuario">Buscar un usuario</button>
+            <button id="borrarUnUsuario">Borrar usuario</button>
+            <span id="mensajeUnUsuario"></span>
+        </div>
+        <br><br><br>
+        <!-- Crear usuario-->
+        <h2>Crear un usuario</h2>
+        <label for="nombreCrearUsuario">Nombre</label>
+        <input id="nombreCrearUsuario">
+        <label for="emailCrearUsuario">Email</label>
+        <input id="emailCrearUsuario">
+        <label for="rolCrearUsuario">Rol</label>
+        <select id="rolCrearUsuario">
+            <option value="admin">Administrador</option>
+            <option value="programador">Programador</option>
+        </select>
+        <label for="passwordCrearUsuario">Password</label>
+        <input id="passwordCrearUsuario">
+        <button id="botonCrearUsuario">Crear un usuario</button>
+
+        <!-- Todas las tareas disponibles-->
+        <h2>Todas las tareas disponibles</h2>
+        <!--TODO: Realizar ruta de administrador para todas las tareas disponibles en general-->
+    </div>
+
+    <div>
+        <h1>Ambos</h1>
+    </div>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
