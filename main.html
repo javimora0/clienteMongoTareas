@@ -12,6 +12,7 @@
 
     <div id="admin">
         <h1>Rol Admin</h1>
+        <hr>
         <h2>Todos los Usuarios</h2>
         <button id="rellenarUsuarios">Obtener todos los Usuarios</button>
         <button id="borrarTabla">Borrar Tabla</button>
@@ -34,7 +35,7 @@
         </div>
         <br>
         <br><br><br>
-
+        <hr>
         <!-- Buscar un usuario por id-->
         <h2>Un usuario</h2>
         <div id="unUsuario">
@@ -45,6 +46,7 @@
             <span id="mensajeUnUsuario"></span>
         </div>
         <br><br><br>
+        <hr>
         <!-- Crear usuario-->
         <h2>Crear un usuario</h2>
         <label for="nombreCrearUsuario">Nombre</label>
@@ -59,17 +61,37 @@
         <label for="passwordCrearUsuario">Password</label>
         <input id="passwordCrearUsuario">
         <button id="botonCrearUsuario">Crear un usuario</button>
-
+        <hr>
         <h2>Consultar tareas de un usuario</h2>
         <label for="inputTareaUnUsuario"></label>
         <input id="inputTareaUnUsuario" type="text">
         <button id="botonTareasUnUsuario">Consultar tareas de un usuario</button>
         <button id="botonBorrarTareaUnUsuario">Borrar tareas de un usuario</button>
         <span id="mensajeTareaUnUsuario"></span>
+
+        <div id="contenedorTablaTareasUnUsuario">
+            <table id="tablaTareasUnUsuario">
+                <thead>
+                <tr>
+                    <th>_id</th>
+                    <th>descripcion</th>
+                    <th>dificultad</th>
+                    <th>horas_previstas</th>
+                    <th>horas_realizadas</th>
+                    <th>porcentaje</th>
+                    <th>completada</th>
+                    <th>asignado_a</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div>
         <h1>Ambos Roles</h1>
+        <hr>
         <!-- Todas las tareas disponibles-->
         <h2>Todas las tareas disponibles</h2>
         <button id="botonObtenerTareasDisponibles">Obtener todas las tareas DISPONIBLES</button>
@@ -93,15 +115,30 @@
             </table>
         </div>
     </div>
-
+    <hr>
     <h2>Obtener ranking de jugadores</h2>
     <button id="botonObtenerRanking">Rankin de jugadores</button>
     <button id="botonBorrarRanking">Borrar ranking jugadores</button>
-    <div id="contenedorranking">
+    <div id="contenedorRanking">
         <table id="tablaRanking">
-
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Tareas Completadas</th>
+                <th>Rol</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
         </table>
     </div>
+    <hr>
+    <!-- HACER RUTA PARA MODIFICAR PASSWORD-->
+    </div>
+
     <script type="module" src="main.js"></script>
 </body>
 </html>

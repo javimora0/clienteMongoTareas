@@ -74,3 +74,35 @@ export async function obtenerTareasDisponibles(token) {
         console.log(error);
     }
 }
+
+export async function obtenerRanking(token) {
+    const headers = {
+        method: "GET",
+        headers:{
+            "Content-Type":"application/json",
+            "x-token":token
+        }
+    }
+    try {
+        const response = await fetch(URL + `programador/ranking`, headers);
+        return await response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function tareasUnUsuario(token, id) {
+    const headers = {
+        method: "GET",
+        headers:{
+            "Content-Type":"application/json",
+            "x-token":token
+        }
+    }
+    try {
+        const response = await fetch(URL + `programador/tareas/` + id, headers);
+        return await response;
+    } catch (error) {
+        console.log(error);
+    }
+}
