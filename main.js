@@ -1,4 +1,4 @@
-import {crearUsuario, todosUsuarios, unUsuario} from "./http-usuarios.js";
+import {crearUsuario, obtenerTareasDisponibles, todosUsuarios, unUsuario} from "./http-usuarios.js";
 
 const usuario = JSON.parse(sessionStorage.getItem('usuario'))
 const divProgramador = document.getElementById("programador")
@@ -10,6 +10,10 @@ const inputIdUnUsuario = document.getElementById("inputIdUnUsuario")
 const mensajeUnUsuario = document.getElementById("mensajeUnUsuario")
 const borrarUnUsuario = document.getElementById("borrarUnUsuario")
 const botonCrearUsuario = document.getElementById("botonCrearUsuario")
+const botonObtenerTareasDisponibles = document.getElementById("botonObtenerTareasDisponibles")
+const botonBorrarTablaTareasDisponibles = document.getElementById("botonBorrarTablaTareasDisponibles")
+const botonObtenerRanking = document.getElementById("botonObtenerRanking")
+const botonTareasUnUsuario = document.getElementById("botonTareasUnUsuario")
 onInit()
 
 function onInit() {
@@ -36,8 +40,22 @@ function rellenarTablaTodosUsuarios(usuarios) {
         });
     });
 
-    // Asegurarse de que el contenedor de la tabla sea visible
     document.getElementById('contenedorTabla').style.display = '';
+}
+
+function rellenarTablaTareasDisponibles(tareas) {
+    const tablaBody = document.getElementById('tablaTareasDisponibles').getElementsByTagName('tbody')[0];
+    tablaBody.innerHTML = ''; // Limpiar la tabla antes de rellenarla
+
+    tareas.forEach(tarea => {
+        const fila = tablaBody.insertRow();
+
+        Object.values(tarea).forEach(texto => {
+            const celda = fila.insertCell();
+            celda.textContent = texto;
+        });
+    });
+    document.getElementById('contenedorTablaTareasDisponibles').style.display = '';
 }
 
 cerrarTodosUsuarios.addEventListener("click", () => {
@@ -88,4 +106,26 @@ botonCrearUsuario.addEventListener("click", async () => {
     }else {
         alert("Error al crear el usuario")
     }
+})
+
+botonObtenerTareasDisponibles.addEventListener("click", async () => {
+    let data = await obtenerTareasDisponibles(usuario.token)
+    if (data.status === 200) {
+        data = await data.json()
+        console.log(data)
+        rellenarTablaTareasDisponibles(data.tareas)
+    }
+})
+
+botonBorrarTablaTareasDisponibles.addEventListener("click", () => {
+    document.getElementById('tablaTareasDisponibles').getElementsByTagName('tbody')[0].innerHTML = '';
+    document.getElementById('contenedorTablaTareasDisponibles').style.display = 'none';
+})
+
+botonObtenerRanking.addEventListener("click", async () => {
+    //TODO: Obtener el ranking
+})
+
+botonTareasUnUsuario.addEventListener("click", async ()=> {
+    // TODO: Obtener las tareas de un usuario
 })

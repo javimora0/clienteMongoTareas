@@ -58,3 +58,19 @@ export async function crearUsuario(token, nombre, email, password, rol) {
         console.log(error);
     }
 }
+
+export async function obtenerTareasDisponibles(token) {
+    const headers = {
+        method: "GET",
+        headers:{
+            "Content-Type":"application/json",
+            "x-token":token
+        }
+    }
+    try {
+        const response = await fetch(URL + `programador/tareas/disponibles`, headers);
+        return await response;
+    } catch (error) {
+        console.log(error);
+    }
+}
