@@ -1,4 +1,6 @@
 import {
+    asignarTareaUsuario,
+    cambiarPassword, crearTarea,
     crearUsuario,
     obtenerRanking,
     obtenerTareasDisponibles,
@@ -23,6 +25,12 @@ const botonObtenerRanking = document.getElementById("botonObtenerRanking")
 const botonTareasUnUsuario = document.getElementById("botonTareasUnUsuario")
 const botonBorrarRanking = document.getElementById("botonBorrarRanking")
 const botonBorrarTareaUnUsuario = document.getElementById("botonBorrarTareaUnUsuario")
+const botonCambiarPassword = document.getElementById("botonCambiarPassword")
+const mensajeCambioPassword = document.getElementById("mensajeCambioPassword")
+const botonCrearTarea = document.getElementById("botonCrearTarea")
+const botonAsignarTareaUsuario = document.getElementById("botonAsignarTareaUsuario")
+
+
 onInit()
 
 function onInit() {
@@ -30,7 +38,7 @@ function onInit() {
     divProgramador.style.display = 'none'
     if (usuario.usuario.rol === 'admin') {
         divAdmin.style.display = 'block'
-    }else if (usuario.usuario.rol === 'programador') {
+    } else if (usuario.usuario.rol === 'programador') {
         divProgramador.style.display = 'block'
     }
 }
@@ -122,8 +130,8 @@ botonBuscarUnUsuario.addEventListener("click", async () => {
     if (data.status === 200) {
         data = await data.json()
         mensajeUnUsuario.innerHTML = "<br> Nombre: " + data.usuario.nombre + "<br> Email " +
-            data.usuario.email + "<br>  Id: " + data.usuario._id + "<br>  Rol: " + data.usuario.rol +  "<br>  Tareas completadas: " + data.usuario.tareas_completadas
-    }else if (data.status === 203) {
+            data.usuario.email + "<br>  Id: " + data.usuario._id + "<br>  Rol: " + data.usuario.rol + "<br>  Tareas completadas: " + data.usuario.tareas_completadas
+    } else if (data.status === 203) {
         alert("Usuario no encontrado")
     }
 })
@@ -146,7 +154,7 @@ botonCrearUsuario.addEventListener("click", async () => {
         document.getElementById("emailCrearUsuario").value = ""
         document.getElementById("rolCrearUsuario").value = ""
         document.getElementById("passwordCrearUsuario").value = ""
-    }else {
+    } else {
         alert("Error al crear el usuario")
     }
 })
@@ -175,7 +183,7 @@ botonBorrarRanking.addEventListener("click", async () => {
     document.getElementById('tablaRanking').getElementsByTagName('tbody')[0].innerHTML = '';
     document.getElementById('contenedorRanking').style.display = 'none';
 })
-botonTareasUnUsuario.addEventListener("click", async ()=> {
+botonTareasUnUsuario.addEventListener("click", async () => {
     let data = await tareasUnUsuario(usuario.token, document.getElementById("inputTareaUnUsuario").value)
     if (data.status === 200) {
         data = await data.json()
@@ -183,3 +191,45 @@ botonTareasUnUsuario.addEventListener("click", async ()=> {
     }
 })
 
+botonCambiarPassword.addEventListener("click", async () => {
+    let data = await cambiarPassword(usuario.token, document.getElementById("inputAntiguaPassword").value, document.getElementById("inputNuevaPassword").value, usuario.usuario._id)
+    data = await data.json()
+    console.log(data)
+    mensajeCambioPassword.textContent = data.mssg
+})
+
+botonCrearTarea.addEventListener("click", async () => {
+    let data = await crearTarea(usuario.token,
+        document.getElementById("descripcionCrearTarea").value,
+        document.getElementById("dificultadCrearTarea").value,
+        document.getElementById("horas_previstas").value,
+        document.getElementById("horas_realizadas").value,
+        document.getElementById("porcentaje").value,
+        document.getElementById("completadaCrearTarea").value
+    )
+    if (data.status === 201) {
+        alert("Tarea creada")
+            document.getElementById("descripcionCrearTarea").value=""
+            document.getElementById("dificultadCrearTarea").value = ""
+            document.getElementById("horas_previstas").value = ""
+            document.getElementById("horas_realizadas").value = ""
+            document.getElementById("porcentaje").value = ""
+            document.getElementById("completadaCrearTarea").value = ""
+    } else {
+        alert("Error al crear la tarea")
+    }
+})
+
+botonAsignarTareaUsuario.addEventListener("click", async() => {
+    let data = await asignarTareaUsuario(usuario.token,
+        document.getElementById("inputIdTarea").value,
+        document.getElementById("inputIdUsuario").value
+    )
+    console.log(await data.json())
+    if (data.status === 200) {
+        alert("Tarea asignada correctamente")
+    }else {
+        let mensaje = await data.json().mssg
+        alert(mensaje)
+    }
+})
